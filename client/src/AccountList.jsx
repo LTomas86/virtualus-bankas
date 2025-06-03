@@ -164,6 +164,30 @@ const AccountList = ({ token }) => {
           {accounts.map(acc => (
             <Card key={acc._id} style={styles.card}>
               <CardContent>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+                  {/* Avatar su inicialais */}
+                  <div style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: '#e0e3e7',
+                    color: '#222',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    fontSize: 16,
+                    letterSpacing: 1,
+                    userSelect: 'none',
+                    flexShrink: 0
+                  }}>
+                    {acc.firstName?.[0]?.toUpperCase()}{acc.lastName?.[0]?.toUpperCase()}
+                  </div>
+                  <Typography variant="subtitle1" fontWeight={700} color="text.primary" gutterBottom style={{margin: 0}}>
+                    {acc.firstName} {acc.lastName}
+                  </Typography>
+                </div>
+                {/* Nuotrauka jei yra */}
                 {acc.passportPhoto && (
                   <img
                     src={acc.passportPhoto?.startsWith('/uploads/') ? `http://localhost:3000${acc.passportPhoto}` : acc.passportPhoto}
@@ -173,7 +197,6 @@ const AccountList = ({ token }) => {
                     title="Click to enlarge"
                   />
                 )}
-                <Typography variant="subtitle1" fontWeight={700} color="text.primary" gutterBottom>{acc.firstName} {acc.lastName}</Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>Account: <span style={{ fontFamily: 'monospace' }}>{acc.accountNumber}</span></Typography>
                 <Typography variant="subtitle1" color="success.main" fontWeight={700} gutterBottom>Balance: {acc.balance.toFixed(2)} €</Typography>
               </CardContent>

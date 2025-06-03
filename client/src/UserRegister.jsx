@@ -30,7 +30,7 @@ const UserRegister = () => {
       setForm({ name: '', email: '', password: '', photo: '' });
       setSuccess(true);
     } catch (err) {
-      // you can add error message if needed
+      // Error handling can be added here if needed
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,6 @@ const UserRegister = () => {
             fullWidth
             required
             margin="normal"
-            size="large"
             autoComplete="off"
           />
           <TextField
@@ -63,7 +62,6 @@ const UserRegister = () => {
             fullWidth
             required
             margin="normal"
-            size="large"
             autoComplete="off"
           />
           <TextField
@@ -75,7 +73,6 @@ const UserRegister = () => {
             fullWidth
             required
             margin="normal"
-            size="large"
             autoComplete="off"
           />
           <TextField
@@ -85,14 +82,12 @@ const UserRegister = () => {
             onChange={handleChange}
             fullWidth
             margin="normal"
-            size="large"
             autoComplete="off"
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            size="large"
             fullWidth
             sx={{ mt: 3, borderRadius: 2, fontWeight: 700, letterSpacing: 1 }}
             startIcon={loading ? <CircularProgress size={22} color="inherit" /> : <PersonAddAlt1Icon />}

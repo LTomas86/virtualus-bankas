@@ -21,11 +21,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/', (req, res) => {
-  console.log(req.body);
-  res.send('Labas iš nodemon + import!');
-});
-
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/accounts', accountRouter);

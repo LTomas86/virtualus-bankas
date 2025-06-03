@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import User from '../model/user.js';
 
-// Routerio iniciavimas būtinas norint išskaidyti kelius į atskirus failus
 const router = Router();
 
 router.post('/', async (req, res) => {
@@ -12,7 +11,5 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Could not save data', details: err.message });
     }
 });
-
-// ...add more user routes here as needed...
 
 export default router;
