@@ -47,14 +47,30 @@ const AccountCreate = ({ token, onCreated }) => {
     setError('');
     setSuccess('');
     try {
-      const res = await axios.post('http://localhost:3000/api/accounts', form, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      let response;
+      if (file) {
+        const formData = new FormData();
+        formData.append('firstName', form.firstName);
+        formData.append('lastName', form.lastName);
+        formData.append('personalId', form.personalId);
+        formData.append('passportPhotoFile', file);
+        response = await axios.post('http://localhost:3000/api/accounts', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      } else {
+        response = await axios.post('http://localhost:3000/api/accounts', form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
       setSuccess('Account created!');
       setForm({ firstName: '', lastName: '', personalId: '', passportPhoto: '' });
       setPreview(null);
+      setFile(null);
       if (onCreated) onCreated();
     } catch (err) {
       let details = '';
