@@ -53,57 +53,122 @@ const AccountList = ({ token }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
+  // Inline stiliai
+  const styles = {
+    root: {
+      fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
+      background: '#f8f9fa',
+      color: '#222',
+      minHeight: '100vh',
+      margin: 0,
+      padding: 0,
+    },
+    cardContainer: {
+      padding: 24,
+      background: '#f6f7fb',
+      borderRadius: 18,
+      boxShadow: '0 4px 32px 0 rgba(60,80,120,0.10)',
+    },
+    cardGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+      gap: 32,
+    },
+    card: {
+      borderRadius: 10,
+      boxShadow: '0 2px 8px 0 rgba(60,80,120,0.06)',
+      border: '1px solid #e5e7eb',
+      background: '#fff',
+      minHeight: 180,
+      transition: 'box-shadow 0.2s, border 0.2s',
+    },
+    cardHover: {
+      boxShadow: '0 12px 32px 0 rgba(60,80,120,0.18)',
+      border: '1.5px solid #1976d2',
+    },
+    modalOverlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      background: 'rgba(0,0,0,0.7)',
+      zIndex: 9999,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'zoom-out',
+    },
+    modalImg: {
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+      borderRadius: 8,
+      boxShadow: '0 8px 32px 0 rgba(60,80,120,0.18)',
+      background: '#fff',
+    },
+    passportImg: {
+      height: 28,
+      borderRadius: 3,
+      border: '1px solid #eee',
+      marginBottom: 6,
+      display: 'block',
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+    },
+    cardActions: {
+      display: 'flex',
+      gap: 8,
+      paddingLeft: 16,
+      paddingRight: 16,
+      paddingBottom: 16,
+    },
+    button: {
+      borderRadius: 6,
+      fontWeight: 600,
+      fontSize: 12,
+      boxShadow: 'none',
+      textTransform: 'none',
+      letterSpacing: 0.2,
+      minHeight: 40,
+      background: '#222',
+      color: '#fff',
+      transition: 'background 0.2s',
+      flex: 1,
+      minWidth: 0,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+    buttonHover: {
+      background: '#444',
+    },
+  };
+
   return (
-    <>
+    <div style={styles.root}>
       {modalPhoto && (
         <div
           onClick={() => setModalPhoto(null)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(0,0,0,0.7)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'zoom-out',
-          }}
+          style={styles.modalOverlay}
         >
           <img
             src={modalPhoto}
             alt="passport enlarged"
-            style={{
-              maxWidth: '90vw',
-              maxHeight: '90vh',
-              borderRadius: 8,
-              boxShadow: '0 8px 32px 0 rgba(60,80,120,0.18)',
-              background: '#fff',
-            }}
+            style={styles.modalImg}
           />
         </div>
       )}
-      <div className="account-list-container" style={{ padding: 24, background: '#f6f7fb', borderRadius: 18, boxShadow: '0 4px 32px 0 rgba(60,80,120,0.10)' }}>
+      <div className="account-list-container" style={styles.cardContainer}>
         <Typography variant="h4" align="center" fontWeight={700} mb={4} color="primary">Account List</Typography>
-        <div className="account-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 32 }}>
+        <div className="account-list" style={styles.cardGrid}>
           {accounts.map(acc => (
-            <Card key={acc._id} sx={{ borderRadius: 4, border: '1.5px solid #e0e0e0', boxShadow: '0 6px 24px 0 rgba(60,80,120,0.10)', transition: 'box-shadow 0.2s, border 0.2s', '&:hover': { boxShadow: '0 12px 32px 0 rgba(60,80,120,0.18)', border: '1.5px solid #1976d2' }, minHeight: 180 }}>
+            <Card key={acc._id} style={styles.card}>
               <CardContent>
                 {acc.passportPhoto && (
                   <img
                     src={acc.passportPhoto?.startsWith('/uploads/') ? `http://localhost:3000${acc.passportPhoto}` : acc.passportPhoto}
                     alt="passport"
-                    style={{
-                      height: 28,
-                      borderRadius: 3,
-                      border: '1px solid #eee',
-                      marginBottom: 6,
-                      display: 'block',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                    }}
+                    style={styles.passportImg}
                     onClick={() => setModalPhoto(acc.passportPhoto?.startsWith('/uploads/') ? `http://localhost:3000${acc.passportPhoto}` : acc.passportPhoto)}
                     title="Click to enlarge"
                   />
@@ -112,28 +177,14 @@ const AccountList = ({ token }) => {
                 <Typography variant="body2" color="text.secondary" gutterBottom>Account: <span style={{ fontFamily: 'monospace' }}>{acc.accountNumber}</span></Typography>
                 <Typography variant="subtitle1" color="success.main" fontWeight={700} gutterBottom>Balance: {acc.balance.toFixed(2)} €</Typography>
               </CardContent>
-              <CardActions sx={{ display: 'flex', gap: 2, justifyContent: 'space-between', px: 2, pb: 2 }}>
+              <CardActions style={styles.cardActions}>
                 <Button
                   variant="contained"
                   color="error"
                   onClick={() => handleDelete(acc._id)}
-                  sx={{
-                    flex: 1,
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    minWidth: 0,
-                    minHeight: 38,
-                    fontSize: 15,
-                    letterSpacing: 0.5,
-                    whiteSpace: 'normal',
-                    textAlign: 'center',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    boxShadow: '0 2px 8px 0 rgba(229,57,53,0.12)',
-                    background: 'linear-gradient(90deg, #ff1744 0%, #d50000 100%)',
-                    color: '#fff',
-                    width: '100%'
-                  }}
+                  style={styles.button}
+                  onMouseOver={e => e.currentTarget.style.background = styles.buttonHover.background}
+                  onMouseOut={e => e.currentTarget.style.background = styles.button.background}
                 >
                   Delete
                 </Button>
@@ -141,23 +192,9 @@ const AccountList = ({ token }) => {
                   variant="contained"
                   color="success"
                   onClick={() => setFundsAction({id: acc._id, type: 'add'})}
-                  sx={{
-                    flex: 1,
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    minWidth: 0,
-                    minHeight: 38,
-                    fontSize: 15,
-                    letterSpacing: 0.5,
-                    whiteSpace: 'normal',
-                    textAlign: 'center',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    boxShadow: '0 2px 8px 0 rgba(67,233,123,0.12)',
-                    background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)',
-                    color: '#fff',
-                    width: '100%'
-                  }}
+                  style={styles.button}
+                  onMouseOver={e => e.currentTarget.style.background = styles.buttonHover.background}
+                  onMouseOut={e => e.currentTarget.style.background = styles.button.background}
                 >
                   Add Funds
                 </Button>
@@ -165,23 +202,9 @@ const AccountList = ({ token }) => {
                   variant="contained"
                   color="warning"
                   onClick={() => setFundsAction({id: acc._id, type: 'withdraw'})}
-                  sx={{
-                    flex: 1,
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    minWidth: 0,
-                    minHeight: 38,
-                    fontSize: 15,
-                    letterSpacing: 0.5,
-                    whiteSpace: 'normal',
-                    textAlign: 'center',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    boxShadow: '0 2px 8px 0 rgba(255,160,0,0.12)',
-                    background: 'linear-gradient(90deg, #ff9800 0%, #ff6d00 100%)',
-                    color: '#fff',
-                    width: '100%'
-                  }}
+                  style={styles.button}
+                  onMouseOver={e => e.currentTarget.style.background = styles.buttonHover.background}
+                  onMouseOut={e => e.currentTarget.style.background = styles.button.background}
                 >
                   Withdraw
                 </Button>
@@ -190,7 +213,7 @@ const AccountList = ({ token }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
