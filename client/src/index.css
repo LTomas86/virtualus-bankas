@@ -1,63 +1,7 @@
-body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e2e6ef 100%);
-  color: #23272f;
-  font-family: 'Roboto', 'Arial', sans-serif;
-  min-height: 100vh;
-  margin: 0;
-  transition: background 0.5s;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  background: #e2e6ef;
-}
-::-webkit-scrollbar-thumb {
-  background: #cfd8e3;
-  border-radius: 8px;
-}
-
-.MuiPaper-root, .MuiCard-root {
-  background: rgba(255,255,255,0.98) !important;
-  color: #23272f !important;
-  box-shadow: 0 4px 32px 0 rgba(60,80,120,0.10) !important;
-  border-radius: 18px !important;
-}
-
-.MuiButton-root {
-  border-radius: 12px !important;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: none;
-}
-
-.MuiTextField-root input, .MuiInputBase-root {
-  background: #f5f7fa !important;
-  color: #23272f !important;
-  border-radius: 8px !important;
-}
-
-.MuiChip-root {
-  font-size: 1.1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.5px;
-}
-
-.MuiAlert-root {
-  border-radius: 10px !important;
-  font-size: 1rem;
-}
-
-/* Responsive padding for main containers */
-@media (max-width: 600px) {
-  .MuiPaper-root, .MuiCard-root {
-    padding: 1rem !important;
-  }
-}
+/* Visi stiliai pašalinti */
 
 

@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Alert,
-  Chip,
-  CircularProgress,
-  Stack
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const AccountFunds = ({ token, accountId, type, onDone }) => {
   const [account, setAccount] = useState(null);
@@ -59,62 +48,78 @@ const AccountFunds = ({ token, accountId, type, onDone }) => {
     }
   };
 
-  if (!account) return <Box display="flex" justifyContent="center" alignItems="center" minHeight="40vh"><CircularProgress color={type === 'add' ? 'success' : 'warning'} /></Box>;
+  if (!account) return <div>Loading...</div>;
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{
-      mt: 4,
-      p: { xs: 2, md: 4 },
-      borderRadius: 4,
-      boxShadow: 3,
-      bgcolor: 'background.paper',
-      maxWidth: 500,
-      mx: 'auto',
+    <form onSubmit={handleSubmit} style={{
+      marginTop: '16px',
+      padding: '16px',
+      borderRadius: '8px',
+      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+      backgroundColor: '#fff',
+      maxWidth: '500px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     }}>
-      <Typography variant="h5" align="center" color={type === 'add' ? 'success.main' : 'warning.main'} fontWeight={700} mb={3}>
+      <h2 style={{ textAlign: 'center', fontWeight: 700, marginBottom: '24px' }}>
         {type === 'add' ? 'Add Funds' : 'Withdraw Funds'}
-      </Typography>
-      <Typography mb={1}>Owner: <b>{account.firstName} {account.lastName}</b></Typography>
-      <Typography mb={2}>Account balance: <Chip label={account.balance.toFixed(2) + ' €'} color="success" size="medium" sx={{ fontSize: 16, fontWeight: 700 }} /></Typography>
-      <TextField
+      </h2>
+      <p style={{ marginBottom: '8px' }}>Owner: <strong>{account.firstName} {account.lastName}</strong></p>
+      <p style={{ marginBottom: '16px' }}>Account balance: <strong>{account.balance.toFixed(2)} €</strong></p>
+      <input
         type="number"
         min={0.01}
         step={0.01}
-        label="Amount (€)"
+        placeholder="Amount (€)"
         value={amount}
         onChange={e => setAmount(e.target.value)}
         required
-        fullWidth
-        size="large"
-        margin="normal"
-        inputProps={{ min: 0.01, step: 0.01 }}
+        style={{
+          width: '100%',
+          padding: '12px',
+          marginBottom: '16px',
+          borderRadius: '4px',
+          border: '1px solid #ccc',
+          fontSize: '16px',
+        }}
       />
-      {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-      {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} mt={3}>
-        <Button
+      {error && <div style={{ color: 'red', marginTop: '16px' }}>{error}</div>}
+      {success && <div style={{ color: 'green', marginTop: '16px' }}>{success}</div>}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
+        <button
           type="submit"
-          variant="contained"
-          color={type === 'add' ? 'success' : 'warning'}
-          size="large"
-          fullWidth
+          style={{
+            padding: '12px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            width: '100%',
+          }}
           disabled={loading}
         >
           {loading ? 'Processing...' : (type === 'add' ? 'Add' : 'Withdraw')}
-        </Button>
-        <Button
+        </button>
+        <button
           type="button"
-          variant="outlined"
-          color="secondary"
-          size="large"
-          fullWidth
-          startIcon={<ArrowBackIcon />}
+          style={{
+            padding: '12px',
+            backgroundColor: 'transparent',
+            color: '#007bff',
+            border: '1px solid #007bff',
+            borderRadius: '4px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            width: '100%',
+          }}
           onClick={onDone}
         >
           Back
-        </Button>
-      </Stack>
-    </Box>
+        </button>
+      </div>
+    </form>
   );
 };
 

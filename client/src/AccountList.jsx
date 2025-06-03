@@ -1,26 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  Box,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
-  Avatar,
-  Button,
-  Grid,
-  Chip,
-  CircularProgress,
-  Alert,
-  IconButton,
-  Stack
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AccountFunds from './AccountFunds';
 
 const AccountList = ({ token }) => {
   const [accounts, setAccounts] = useState([]);
@@ -64,75 +43,54 @@ const AccountList = ({ token }) => {
     return <AccountFunds token={token} accountId={fundsAction.id} type={fundsAction.type} onDone={() => { setFundsAction(null); fetchAccounts(); }} />;
   }
 
-  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" minHeight="40vh"><CircularProgress color="success" /></Box>;
-  if (error) return <Alert severity="error">{error}</Alert>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <Box sx={{ p: { xs: 1, md: 2 } }}>
-      <Typography variant="h4" align="center" color="success.main" fontWeight={700} mb={4} letterSpacing={1}>
+    <div style={{ padding: '16px' }}>
+      <h2 style={{ textAlign: 'center', fontWeight: 700, marginBottom: '32px' }}>
         Account List
-      </Typography>
-      <Grid container spacing={3} justifyContent="center">
+      </h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {accounts.map(acc => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={acc._id}>
-            <Card sx={{ borderTop: 4, borderColor: 'success.main', borderRadius: 3, boxShadow: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: 'success.main', fontWeight: 700 }}>
-                    {acc.firstName[0]}{acc.lastName[0]}
-                  </Avatar>
-                }
-                title={<Typography fontWeight={600} color="success.main">{acc.firstName} {acc.lastName}</Typography>}
-                sx={{ pb: 0 }}
-              />
-              <CardContent sx={{ pt: 1, pb: 2 }}>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  Account:
-                  <Box component="span" fontWeight={600} ml={1} sx={{ wordBreak: 'break-all' }}>{acc.accountNumber}</Box>
-                </Typography>
-                <Stack direction="row" alignItems="center" spacing={1} mb={2}>
-                  <Typography variant="body2">Balance:</Typography>
-                  <Chip label={acc.balance.toFixed(2) + ' €'} color="success" size="medium" sx={{ fontSize: 16, fontWeight: 700 }} />
-                </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    startIcon={<DeleteIcon />}
-                    onClick={() => handleDelete(acc._id)}
-                    fullWidth
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    startIcon={<AddCircleIcon />}
-                    onClick={() => setFundsAction({id: acc._id, type: 'add'})}
-                    fullWidth
-                  >
-                    Add Funds
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="warning"
-                    startIcon={<RemoveCircleIcon />}
-                    onClick={() => setFundsAction({id: acc._id, type: 'withdraw'})}
-                    fullWidth
-                  >
-                    Withdraw
-                  </Button>
-                </Stack>
-              </CardContent>
-              <Box sx={{ px: 2, pb: 1, pt: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                <AccessTimeIcon fontSize="small" color="disabled" sx={{ mr: 0.5 }} />
-                <Typography variant="caption" color="text.secondary">Updated</Typography>
-              </Box>
-            </Card>
-          </Grid>
+          <div key={acc._id} style={{ border: '1px solid #ccc', borderRadius: '8px', margin: '8px', padding: '16px', width: 'calc(25% - 32px)', boxSizing: 'border-box' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ fontWeight: 600 }}>
+                {acc.firstName} {acc.lastName}
+              </div>
+              <div style={{ color: '#666' }}>
+                Account:
+                <span style={{ fontWeight: 600, marginLeft: '4px' }}>{acc.accountNumber}</span>
+              </div>
+            </div>
+            <div style={{ marginBottom: '16px' }}>
+              <span>Balance:</span>
+              <strong style={{ marginLeft: '4px' }}>{acc.balance.toFixed(2)} €</strong>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button
+                onClick={() => handleDelete(acc._id)}
+                style={{ backgroundColor: '#f44336', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => setFundsAction({id: acc._id, type: 'add'})}
+                style={{ backgroundColor: '#4caf50', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Add Funds
+              </button>
+              <button
+                onClick={() => setFundsAction({id: acc._id, type: 'withdraw'})}
+                style={{ backgroundColor: '#ff9800', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Withdraw
+              </button>
+            </div>
+          </div>
         ))}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 };
 

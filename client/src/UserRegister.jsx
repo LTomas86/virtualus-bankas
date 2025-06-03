@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Alert,
-  CircularProgress,
-  Paper
-} from '@mui/material';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 const UserRegister = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '', photo: '' });
@@ -37,75 +27,68 @@ const UserRegister = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-      <Paper elevation={4} sx={{ p: { xs: 2, md: 4 }, borderRadius: 4, maxWidth: 500, width: '100%' }}>
-        <Typography variant="h5" align="center" color="primary.main" fontWeight={700} mb={3}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', maxWidth: '500px', width: '100%' }}>
+        <h2 style={{ textAlign: 'center', fontWeight: 700, marginBottom: '1.5rem' }}>
           Register User
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            name="name"
-            label="Name"
-            value={form.name}
-            onChange={handleChange}
-            fullWidth
-            required
-            margin="normal"
-            size="large"
-            autoComplete="off"
-          />
-          <TextField
-            name="email"
-            type="email"
-            label="Email"
-            value={form.email}
-            onChange={handleChange}
-            fullWidth
-            required
-            margin="normal"
-            size="large"
-            autoComplete="off"
-          />
-          <TextField
-            name="password"
-            type="password"
-            label="Password"
-            value={form.password}
-            onChange={handleChange}
-            fullWidth
-            required
-            margin="normal"
-            size="large"
-            autoComplete="off"
-          />
-          <TextField
-            name="photo"
-            label="Photo URL"
-            value={form.photo}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            size="large"
-            autoComplete="off"
-          />
-          <Button
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '1rem' }}>
+            <input
+              name="name"
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+              style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc' }}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc' }}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc' }}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <input
+              name="photo"
+              placeholder="Photo URL"
+              value={form.photo}
+              onChange={handleChange}
+              style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc' }}
+            />
+          </div>
+          <button
             type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth
-            sx={{ mt: 3, borderRadius: 2, fontWeight: 700, letterSpacing: 1 }}
-            startIcon={loading ? <CircularProgress size={22} color="inherit" /> : <PersonAddAlt1Icon />}
+            style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: 'none', backgroundColor: '#007bff', color: 'white', fontWeight: 700, cursor: 'pointer' }}
             disabled={loading}
           >
             {loading ? 'Submitting...' : 'Register'}
-          </Button>
+          </button>
           {success && (
-            <Alert severity="success" sx={{ mt: 3, textAlign: 'center' }}>Registration successful!</Alert>
+            <div style={{ marginTop: '1rem', textAlign: 'center', color: 'green' }}>
+              Registration successful!
+            </div>
           )}
-        </Box>
-      </Paper>
-    </Box>
+        </form>
+      </div>
+    </div>
   );
 };
 
