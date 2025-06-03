@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import AccountFunds from './AccountFunds';
 
 const AccountList = ({ token }) => {
   const [accounts, setAccounts] = useState([]);
@@ -47,48 +53,25 @@ const AccountList = ({ token }) => {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div style={{ padding: '16px' }}>
-      <h2 style={{ textAlign: 'center', fontWeight: 700, marginBottom: '32px' }}>
-        Account List
-      </h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {accounts.map(acc => (
-          <div key={acc._id} style={{ border: '1px solid #ccc', borderRadius: '8px', margin: '8px', padding: '16px', width: 'calc(25% - 32px)', boxSizing: 'border-box' }}>
-            <div style={{ marginBottom: '16px' }}>
-              <div style={{ fontWeight: 600 }}>
-                {acc.firstName} {acc.lastName}
-              </div>
-              <div style={{ color: '#666' }}>
-                Account:
-                <span style={{ fontWeight: 600, marginLeft: '4px' }}>{acc.accountNumber}</span>
-              </div>
-            </div>
-            <div style={{ marginBottom: '16px' }}>
-              <span>Balance:</span>
-              <strong style={{ marginLeft: '4px' }}>{acc.balance.toFixed(2)} €</strong>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <button
-                onClick={() => handleDelete(acc._id)}
-                style={{ backgroundColor: '#f44336', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => setFundsAction({id: acc._id, type: 'add'})}
-                style={{ backgroundColor: '#4caf50', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-              >
-                Add Funds
-              </button>
-              <button
-                onClick={() => setFundsAction({id: acc._id, type: 'withdraw'})}
-                style={{ backgroundColor: '#ff9800', color: 'white', padding: '8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-              >
-                Withdraw
-              </button>
-            </div>
-          </div>
-        ))}
+    <div style={{ minHeight: '60vh', background: 'linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%)', padding: '24px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', background: '#fff', borderRadius: 24, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)', padding: 32 }}>
+        <Typography variant="h4" align="center" fontWeight={700} mb={4} color="primary">Account List</Typography>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 32 }}>
+          {accounts.map(acc => (
+            <Card key={acc._id} style={{ borderRadius: 18, boxShadow: '0 4px 24px 0 rgba(60,80,120,0.10)', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
+              <CardContent>
+                <Typography variant="h6" fontWeight={700} color="text.primary" gutterBottom>{acc.firstName} {acc.lastName}</Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>Account: <span style={{ fontFamily: 'monospace' }}>{acc.accountNumber}</span></Typography>
+                <Typography variant="h6" color="success.main" fontWeight={700} gutterBottom>Balance: {acc.balance.toFixed(2)} €</Typography>
+              </CardContent>
+              <CardActions style={{ display: 'flex', gap: 8, justifyContent: 'space-between', padding: 16 }}>
+                <Button variant="contained" color="error" onClick={() => handleDelete(acc._id)} style={{ flex: 1, fontWeight: 700, borderRadius: 8 }}>Delete</Button>
+                <Button variant="contained" color="success" onClick={() => setFundsAction({id: acc._id, type: 'add'})} style={{ flex: 1, fontWeight: 700, borderRadius: 8 }}>Add Funds</Button>
+                <Button variant="contained" color="warning" onClick={() => setFundsAction({id: acc._id, type: 'withdraw'})} style={{ flex: 1, fontWeight: 700, borderRadius: 8 }}>Withdraw</Button>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

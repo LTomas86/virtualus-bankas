@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const AccountCreate = ({ token, onCreated }) => {
   const [form, setForm] = useState({
@@ -62,68 +66,17 @@ const AccountCreate = ({ token, onCreated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>New Account</h2>
-      <div>
-        <label>First Name</label>
-        <input
-          name="firstName"
-          value={form.firstName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          name="lastName"
-          value={form.lastName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Personal ID</label>
-        <input
-          name="personalId"
-          value={form.personalId}
-          onChange={handleChange}
-          required
-          maxLength={11}
-          minLength={11}
-        />
-        <small>11 digits, e.g. 39912319999</small>
-      </div>
-      <div>
-        <label>Passport copy URL</label>
-        <input
-          name="passportPhoto"
-          value={form.passportPhoto}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Upload Passport Photo</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-      </div>
-      {preview && (
-        <div>
-          <img src={preview} alt="Preview" style={{ width: 80, height: 80 }} />
-        </div>
-      )}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {success && <div style={{ color: 'green' }}>{success}</div>}
-      <button type="submit" disabled={loading}>
-        {loading ? 'Creating...' : 'Create Account'}
-      </button>
-      <button type="button" onClick={() => navigate(-1)}>
-        ← Back
-      </button>
-    </form>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+      <Box component="form" onSubmit={handleSubmit} sx={{ p: 4, borderRadius: 4, boxShadow: 3, bgcolor: '#fff', width: '100%', maxWidth: 400 }}>
+        <Typography variant="h5" align="center" fontWeight={700} mb={3} color="primary">New Account</Typography>
+        <TextField name="firstName" label="First Name" value={form.firstName} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
+        <TextField name="lastName" label="Last Name" value={form.lastName} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
+        <TextField name="personalId" label="Personal ID" value={form.personalId} onChange={handleChange} fullWidth required margin="normal" inputProps={{ maxLength: 11, minLength: 11 }} helperText="11 digits, e.g. 39912319999" autoComplete="off" />
+        <TextField name="passportPhoto" label="Passport copy URL" value={form.passportPhoto} onChange={handleChange} fullWidth margin="normal" autoComplete="off" />
+        <Button type="submit" variant="contained" color="success" size="large" fullWidth sx={{ mt: 3, borderRadius: 2, fontWeight: 700, fontSize: 18 }}>Create Account</Button>
+        <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2, borderRadius: 2, fontWeight: 700, fontSize: 18 }} onClick={() => navigate(-1)}>← Back</Button>
+      </Box>
+    </Box>
   );
 };
 
