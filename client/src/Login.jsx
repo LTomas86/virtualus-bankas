@@ -38,7 +38,9 @@ const Login = ({ onLogin }) => {
         <Typography variant="h5" align="center" fontWeight={700} mb={3} color="primary">Login</Typography>
         <TextField name="email" label="Email" type="email" value={form.email} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
         <TextField name="password" label="Password" type="password" value={form.password} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
-        {error && (<Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>)}
+        {error && (
+          <Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>
+        )}
         <Button type="submit" variant="contained" color="primary" size="large" fullWidth sx={{ mt: 3, borderRadius: 2, fontWeight: 700, fontSize: 18 }}>{loading ? 'Logging in...' : 'Login'}</Button>
       </Box>
     </Box>

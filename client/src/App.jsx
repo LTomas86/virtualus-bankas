@@ -46,24 +46,24 @@ function App() {
           width: '100%',
           background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)',
           color: '#fff',
-          padding: '32px 0 24px 0',
+          padding: '16px 0 10px 0', // sumažintas padding
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
           boxShadow: '0 4px 24px 0 rgba(60,80,120,0.10)',
-          marginBottom: 32,
+          marginBottom: 24, // sumažintas tarpas apačioje
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          minHeight: 120
+          minHeight: 56 // sumažintas aukštis
         }}>
-          <span style={{ fontSize: 38, fontWeight: 900, letterSpacing: 2, textShadow: '0 2px 8px rgba(60,80,120,0.10)' }}>
+          <span style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1, textShadow: '0 2px 8px rgba(60,80,120,0.10)' }}>
             Banking System
           </span>
-          <span style={{ position: 'absolute', right: 40, top: 40, display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontWeight: 600, fontSize: 18 }}>{user?.name}</span>
-            <button onClick={handleLogout} style={{ padding: '8px 18px', borderRadius: 8, background: '#e53935', color: '#fff', fontWeight: 700, border: 'none', fontSize: 16, boxShadow: '0 2px 8px 0 rgba(229,57,53,0.10)', cursor: 'pointer', transition: 'background 0.2s' }}
+          <span style={{ position: 'absolute', right: 32, top: 18, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontWeight: 600, fontSize: 15 }}>{user?.name}</span>
+            <button onClick={handleLogout} style={{ padding: '6px 14px', borderRadius: 8, background: '#e53935', color: '#fff', fontWeight: 700, border: 'none', fontSize: 14, boxShadow: '0 2px 8px 0 rgba(229,57,53,0.10)', cursor: 'pointer', transition: 'background 0.2s' }}
               onMouseOver={e => e.currentTarget.style.background = '#b71c1c'}
               onMouseOut={e => e.currentTarget.style.background = '#e53935'}
             >Logout</button>

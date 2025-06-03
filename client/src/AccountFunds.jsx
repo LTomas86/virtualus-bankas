@@ -78,7 +78,9 @@ const AccountFunds = ({ token, accountId, type, onDone }) => {
             required
             margin="normal"
           />
-          {error && <Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>}
+          {error && (
+            <Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>
+          )}
           {success && <Typography color="success.main" align="center" sx={{ mt: 2 }}>{success}</Typography>}
           <Box display="flex" gap={2} mt={3}>
             <Button

@@ -73,6 +73,31 @@ const AccountCreate = ({ token, onCreated }) => {
         <TextField name="lastName" label="Last Name" value={form.lastName} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
         <TextField name="personalId" label="Personal ID" value={form.personalId} onChange={handleChange} fullWidth required margin="normal" inputProps={{ maxLength: 11, minLength: 11 }} helperText="11 digits, e.g. 39912319999" autoComplete="off" />
         <TextField name="passportPhoto" label="Passport copy URL" value={form.passportPhoto} onChange={handleChange} fullWidth margin="normal" autoComplete="off" />
+        <Box display="flex" alignItems="center" gap={2} mt={2} mb={2}>
+          <Button
+            variant="outlined"
+            component="label"
+            color="primary"
+            sx={{ minWidth: 0, fontWeight: 600, fontSize: 15, borderRadius: 2 }}
+          >
+            Upload Photo
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleFileChange}
+            />
+          </Button>
+          {preview && (
+            <img src={preview} alt="Preview" style={{ height: 40, borderRadius: 4, border: '1px solid #eee' }} />
+          )}
+          {file && (
+            <Typography variant="body2" color="text.secondary">{file.name}</Typography>
+          )}
+        </Box>
+        {error && (
+          <Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>
+        )}
         <Button type="submit" variant="contained" color="success" size="large" fullWidth sx={{ mt: 3, borderRadius: 2, fontWeight: 700, fontSize: 18 }}>Create Account</Button>
         <Button variant="outlined" color="primary" fullWidth sx={{ mt: 2, borderRadius: 2, fontWeight: 700, fontSize: 18 }} onClick={() => navigate(-1)}>← Back</Button>
       </Box>
