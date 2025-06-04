@@ -34,6 +34,13 @@ const AccountList = ({ token }) => {
     
   }, []);
 
+  // Sort accounts by last name (pavardė)
+  const sortedAccounts = [...accounts].sort((a, b) => {
+    if (!a.lastName) return 1;
+    if (!b.lastName) return -1;
+    return a.lastName.localeCompare(b.lastName, 'lt', { sensitivity: 'base' });
+  });
+
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this account?')) return;
     try {
@@ -161,7 +168,7 @@ const AccountList = ({ token }) => {
       <div className="account-list-container" style={styles.cardContainer}>
         <Typography variant="h4" align="center" fontWeight={700} mb={4} color="primary">Account List</Typography>
         <div className="account-list" style={styles.cardGrid}>
-          {accounts.map(acc => (
+          {sortedAccounts.map(acc => (
             <Card key={acc._id} style={styles.card}>
               <CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
