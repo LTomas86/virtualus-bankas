@@ -44,19 +44,20 @@ function App() {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
         <header style={{
           width: '100%',
-          background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)',
-          color: '#fff',
-          padding: '16px 0 10px 0', // sumažintas padding
+          background: 'linear-gradient(90deg,rgb(169, 193, 177) 0%,rgb(3, 70, 58) 100%)',
+          color: 'black',
+          display: 'flex',
+          
+          padding: '16px 0 10px 0', 
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
           boxShadow: '0 4px 24px 0 rgba(60,80,120,0.10)',
-          marginBottom: 24, // sumažintas tarpas apačioje
-          display: 'flex',
+          marginBottom: 24, 
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          minHeight: 56 // sumažintas aukštis
+          minHeight: 56 
         }}>
           <span style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1, textShadow: '0 2px 8px rgba(60,80,120,0.10)' }}>
             Banking System
@@ -92,8 +93,8 @@ function App() {
               color: '#fff',
               transition: 'all 0.3s',
             }}
-            onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(90deg, #38f9d7 0%, #43e97b 100%)'}
-            onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)'}
+            onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(90deg,rgb(86, 166, 151) 0%,rgb(55, 217, 109) 100%)'}
+            onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(90deg,rgb(155, 204, 171) 0%,rgb(52, 249, 213) 100%)'}
             onClick={() => navigate('/create')}
           >
             New Account
