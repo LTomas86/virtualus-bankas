@@ -30,18 +30,141 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-      <Box sx={{ mb: 2, p: 1, bgcolor: '#e8f0fe', borderRadius: 2, fontSize: 14, textAlign: 'center', color: '#1976d2', maxWidth: 400, width: '100%' }}>
-        Test login: <strong>admin@pastas.lt</strong> / <strong>slaptazodis123</strong>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      sx={{
+        background: 'linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)',
+        width: '100vw',
+        height: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 0,
+      }}
+    >
+      {/* Header */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          py: 3,
+          bgcolor: 'rgba(33,150,243,0.12)',
+          textAlign: 'center',
+          zIndex: 2,
+          boxShadow: '0 2px 12px 0 rgba(33,150,243,0.10)',
+        }}
+      >
+        <Typography
+          variant="h3"
+          fontWeight={900}
+          color="primary"
+          sx={{ letterSpacing: 2, textShadow: '0 2px 8px rgba(33,150,243,0.10)' }}
+        >
+          Virtual bank
+        </Typography>
       </Box>
-      <Box component="form" onSubmit={handleSubmit} sx={{ p: 4, borderRadius: 4, boxShadow: 3, bgcolor: '#fff', width: '100%', maxWidth: 400 }}>
-        <Typography variant="h5" align="center" fontWeight={700} mb={3} color="primary">Login</Typography>
-        <TextField name="email" label="Email" type="email" value={form.email} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
-        <TextField name="password" label="Password" type="password" value={form.password} onChange={handleChange} fullWidth required margin="normal" autoComplete="off" />
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          p: { xs: 2, md: 5 },
+          borderRadius: 5,
+          boxShadow: '0 8px 32px 0 rgba(33,150,243,0.18)',
+          bgcolor: '#fff',
+          width: '100%',
+          maxWidth: 420,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          align="center"
+          fontWeight={900}
+          mb={2}
+          color="primary"
+          sx={{ letterSpacing: 1, textShadow: '0 2px 8px rgba(33,150,243,0.10)' }}
+        >
+          Login
+        </Typography>
+        {/* Test login info moved below header */}
+        <Box
+          sx={{
+            mb: 2,
+            p: 1.5,
+            bgcolor: 'rgba(33,150,243,0.08)',
+            borderRadius: 3,
+            fontSize: 15,
+            textAlign: 'center',
+            color: '#1976d2',
+            maxWidth: 420,
+            width: '100%',
+            boxShadow: '0 2px 12px 0 rgba(33,150,243,0.10)',
+            fontWeight: 500,
+            letterSpacing: 0.2,
+          }}
+        >
+          Test login: <strong>admin@pastas.lt</strong> / <strong>slaptazodis123</strong>
+        </Box>
+        <TextField
+          name="email"
+          label="E-mail"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="off"
+          sx={{ borderRadius: 2, bgcolor: '#f8fafc' }}
+        />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          value={form.password}
+          onChange={handleChange}
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="off"
+          sx={{ borderRadius: 2, bgcolor: '#f8fafc' }}
+        />
         {error && (
-          <Typography color="error" align="center" sx={{ mt: 2 }}>{error}</Typography>
+          <Typography color="error" align="center" sx={{ mt: 1, mb: 1, fontWeight: 600, fontSize: 15 }}>{error}</Typography>
         )}
-        <Button type="submit" variant="contained" color="primary" size="large" fullWidth sx={{ mt: 3, borderRadius: 2, fontWeight: 700, fontSize: 18 }}>{loading ? 'Logging in...' : 'Login'}</Button>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          size="large"
+          fullWidth
+          sx={{
+            mt: 2,
+            borderRadius: 3,
+            fontWeight: 800,
+            fontSize: 20,
+            letterSpacing: 1,
+            boxShadow: '0 4px 16px 0 rgba(33,150,243,0.10)',
+            textTransform: 'none',
+            py: 1.5,
+            background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)',
+            color: '#fff',
+            transition: 'all 0.2s',
+            '&:hover': {
+              background: 'linear-gradient(90deg, #38f9d7 0%, #43e97b 100%)',
+            },
+          }}
+        >
+          {loading ? 'Jungiamasi...' : 'Prisijungti'}
+        </Button>
       </Box>
     </Box>
   );

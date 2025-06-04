@@ -59,7 +59,7 @@ function App() {
           position: 'relative',
           minHeight: 56 
         }}>
-          <span style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1, textShadow: '0 2px 8px rgba(60,80,120,0.10)' }}>
+          <span style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1, textShadow: '0 2px 8px rgba(60,80,120,0.10)', fontFamily: 'Montserrat, sans-serif' }}>
             Banking System
           </span>
           <span style={{ position: 'absolute', right: 32, top: 18, display: 'flex', alignItems: 'center', gap: 10 }}>

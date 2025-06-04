@@ -12,7 +12,7 @@ const AccountList = ({ token }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [fundsAction, setFundsAction] = useState(null);
-  const [modalPhoto, setModalPhoto] = useState(null); // modal nuotraukai
+  const [modalPhoto, setModalPhoto] = useState(null); 
 
   const fetchAccounts = async () => {
     setLoading(true);
@@ -34,7 +34,7 @@ const AccountList = ({ token }) => {
     
   }, []);
 
-  // Sort accounts by last name (pavardė)
+
   const sortedAccounts = [...accounts].sort((a, b) => {
     if (!a.lastName) return 1;
     if (!b.lastName) return -1;
@@ -60,7 +60,7 @@ const AccountList = ({ token }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
-  // Inline stiliai
+ 
   const styles = {
     root: {
       fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
