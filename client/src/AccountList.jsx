@@ -13,6 +13,7 @@ const AccountList = ({ token }) => {
   const [error, setError] = useState('');
   const [fundsAction, setFundsAction] = useState(null);
   const [modalPhoto, setModalPhoto] = useState(null); 
+  const [deleteDialog, setDeleteDialog] = useState({ open: false, id: null, accountNumber: '' });
 
   const fetchAccounts = async () => {
     setLoading(true);
@@ -41,13 +42,23 @@ const AccountList = ({ token }) => {
     return a.lastName.localeCompare(b.lastName, 'lt', { sensitivity: 'base' });
   });
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this account?')) return;
+  const handleDeleteClick = (id) => {
+    setDeleteDialog({ open: true, id, accountNumber: '' });
+  };
+
+  const handleDeleteConfirm = async () => {
+    const acc = accounts.find(a => a._id === deleteDialog.id);
+    if (!acc) return;
+    if (deleteDialog.accountNumber !== acc.accountNumber) {
+      alert('Neteisingas sąskaitos numeris.');
+      return;
+    }
     try {
-      await axios.delete(`http://localhost:3000/api/accounts/${id}`, {
+      await axios.delete(`http://localhost:3000/api/accounts/${deleteDialog.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setAccounts(accounts.filter(acc => acc._id !== id));
+      setAccounts(accounts.filter(acc => acc._id !== deleteDialog.id));
+      setDeleteDialog({ open: false, id: null, accountNumber: '' });
     } catch (err) {
       alert(err.response?.data?.message || err.message || 'Failed to delete');
     }
@@ -211,7 +222,7 @@ const AccountList = ({ token }) => {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => handleDelete(acc._id)}
+                  onClick={() => handleDeleteClick(acc._id)}
                   style={styles.button}
                   onMouseOver={e => e.currentTarget.style.background = styles.buttonHover.background}
                   onMouseOut={e => e.currentTarget.style.background = styles.button.background}
@@ -243,6 +254,27 @@ const AccountList = ({ token }) => {
           ))}
         </div>
       </div>
+      {deleteDialog.open && (
+  <div style={{
+    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center'
+  }}>
+    <div style={{ background: '#fff', padding: 32, borderRadius: 12, boxShadow: '0 8px 32px 0 rgba(60,80,120,0.18)', minWidth: 320 }}>
+      <Typography variant="h6" mb={2} align="center">Enter account number to confirm deletion</Typography>
+      <input
+        type="text"
+        value={deleteDialog.accountNumber}
+        onChange={e => setDeleteDialog({ ...deleteDialog, accountNumber: e.target.value })}
+        style={{ width: '100%', padding: 10, fontSize: 16, borderRadius: 6, border: '1px solid #ccc', marginBottom: 16 }}
+        placeholder="Account number"
+        maxLength={20}
+      />
+      <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+        <Button variant="contained" color="error" onClick={handleDeleteConfirm}>Delete</Button>
+        <Button variant="outlined" color="primary" onClick={() => setDeleteDialog({ open: false, id: null, accountNumber: '' })}>Cancel</Button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
