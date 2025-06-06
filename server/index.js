@@ -18,7 +18,10 @@ mongoose.connect('mongodb://localhost:27017/nesamone3000', {
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // nurodykite savo frontend adresą
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

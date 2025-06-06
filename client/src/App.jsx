@@ -5,6 +5,7 @@ import UserRegister from './UserRegister';
 import AccountList from './AccountList';
 import AccountCreate from './AccountCreate';
 import Button from '@mui/material/Button';
+import CookieTest from './CookieTest';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -34,6 +35,7 @@ function App() {
     return (
       <Routes>
         <Route path="/register" element={<UserRegister />} />
+        <Route path="/cookie-test" element={<CookieTest />} />
         <Route path="*" element={<Login onLogin={handleLogin} />} />
       </Routes>
     );
