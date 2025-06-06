@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import userRouter from './src/controller/user.js';
 import authRouter from './src/controller/auth.js';
 import accountRouter from './src/controller/account.js';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -20,11 +21,21 @@ mongoose.connect('mongodb://localhost:27017/nesamone3000', {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/accounts', accountRouter);
 app.use('/uploads', express.static('public/uploads'));
+
+// Pavyzdinis route cookies naudojimui
+app.get('/cookie-test', (req, res) => {
+  // Nustatome cookie
+  res.cookie('testCookie', 'cookieReiksme', { httpOnly: true });
+  // Nuskaitome cookies
+  const cookies = req.cookies;
+  res.json({ zinute: 'Cookie nustatyta!', cookies });
+});
 
 app.listen(PORT, () => {
   console.log(`Serveris veikia http://localhost:${PORT}`);
