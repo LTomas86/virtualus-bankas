@@ -19,36 +19,27 @@ mongoose.connect('mongodb://localhost:27017/nesamone3000', {
 .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
+app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // nurodykite savo frontend adresą
+  origin: 'http://localhost:5173',
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
-// CSRF middleware setup
+// CSRF apsauga
 const csrfProtection = csrf({ cookie: true });
 app.use(csrfProtection);
+
+// Endpoint CSRF tokenui gauti
+app.get('/api/csrf-token', (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/accounts', accountRouter);
 app.use('/uploads', express.static('public/uploads'));
-
-// Pavyzdinis route cookies naudojimui
-app.get('/cookie-test', (req, res) => {
-  // Nustatome cookie
-  res.cookie('testCookie', 'cookieReiksme', { httpOnly: true });
-  // Nuskaitome cookies
-  const cookies = req.cookies;
-  res.json({ zinute: 'Cookie nustatyta!', cookies });
-});
-
-// Pavyzdinis endpoint CSRF tokenui gauti
-app.get('/api/csrf-token', (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
 
 app.listen(PORT, () => {
   console.log(`Serveris veikia http://localhost:${PORT}`);

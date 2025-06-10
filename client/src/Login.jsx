@@ -9,6 +9,14 @@ const Login = ({ onLogin }) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [csrf, setCsrf] = useState('');
+
+  React.useEffect(() => {
+    // Gauti CSRF tokeną kai užkraunamas komponentas
+    axios.get('http://localhost:3000/api/csrf-token', { withCredentials: true })
+      .then(res => setCsrf(res.data.csrfToken))
+      .catch(() => setCsrf(''));
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +28,10 @@ const Login = ({ onLogin }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('http://localhost:3000/api/auth/login', form);
+      const res = await axios.post('http://localhost:3000/api/auth/login', form, {
+        withCredentials: true,
+        headers: { 'X-CSRF-Token': csrf },
+      });
       onLogin(res.data.token, res.data.user);
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Error');
