@@ -1,69 +1,103 @@
 # React + Node.js (Express) Virtual Bank
 
-Šis projektas – tai pilnas pavyzdys, kaip sukurti saugią banko tipo sistemą naudojant React (frontend) ir Node.js/Express (backend) su MongoDB duomenų baze.
+This project is a complete example of how to build a secure banking-style system using React (frontend) and Node.js/Express (backend) with a MongoDB database.
 
-## Funkcionalumas
-- Vartotojų registracija ir prisijungimas
-- JWT autentifikacija
-- Sąskaitų kūrimas, lėšų pridėjimas/nuskaičiavimas, trynimas
-- Nuotraukų (paso kopijų) įkėlimas
-- Cookies naudojimas (pvz., sesijoms, CSRF)
-- CSRF apsauga (su csurf middleware)
-- CORS apsauga (tik iš nurodyto origin)
-- Slaptažodžių saugus saugojimas (bcrypt)
+## Features
 
-## Paleidimas
+✅ User registration and login  
+✅ JWT authentication  
+✅ Account creation, deposit/withdraw funds, delete accounts  
+✅ Photo upload (e.g. passport copies)  
+✅ Cookies usage (sessions, CSRF protection)  
+✅ CSRF protection (with `csurf` middleware)  
+✅ CORS protection (only from a specified origin)  
+✅ Secure password storage (bcrypt)
+
+---
+
+## Getting Started
 
 ### 1. Backend (server)
-1. Eikite į `server` aplanką:
-   ```powershell
-   cd server
-   ```
-2. Įdiekite priklausomybes:
-   ```powershell
-   npm install
-   ```
-3. Paleiskite serverį:
-   ```powershell
-   npm run dev
-   ```
-   Serveris veiks per http://localhost:3000
+
+1. Go to the `server` folder:
+    ```bash
+    cd server
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the server:
+    ```bash
+    npm run dev
+    ```
+    The server will run at **http://localhost:3000**
+
+---
 
 ### 2. Frontend (client)
-1. Eikite į `client` aplanką:
-   ```powershell
-   cd ../client
-   ```
-2. Įdiekite priklausomybes:
-   ```powershell
-   npm install
-   ```
-3. Paleiskite React aplikaciją:
-   ```powershell
-   npm run dev
-   ```
-   Aplikacija bus pasiekiama per http://localhost:5173
 
-## Saugumo ypatybės
-- **CSRF apsauga:** Prieš POST/PUT/DELETE užklausas frontend gauna CSRF tokeną iš `/api/csrf-token` ir siunčia jį antraštėje `X-CSRF-Token`.
-- **Cookies:** Naudojamas `cookie-parser` ir cookies su HttpOnly, Secure, SameSite atributais.
-- **CORS:** Tik iš http://localhost:5173 (arba nurodyto adreso).
-- **Slaptažodžiai:** Visi slaptažodžiai saugomi su bcrypt hash.
+1. Go to the `client` folder:
+    ```bash
+    cd ../client
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the React application:
+    ```bash
+    npm run dev
+    ```
+    The app will be available at **http://localhost:5173**
 
-## Struktūra
-```
+---
+
+## Security Features
+
+🔒 **CSRF protection:**  
+Before POST/PUT/DELETE requests, the frontend obtains a CSRF token from `/api/csrf-token` and sends it in the `X-CSRF-Token` header.
+
+🔒 **Cookies:**  
+Uses `cookie-parser` with HttpOnly, Secure, and SameSite attributes.
+
+🔒 **CORS:**  
+Allowed only from http://localhost:5173 (or your specified address).
+
+🔒 **Passwords:**  
+All passwords are securely stored using bcrypt hashing.
+
+---
+
+## Project Structure
 frontend-backend/
-├── client/      # React (Vite) frontend
-└── server/      # Node.js/Express backend
-```
 
-## Naudojimas
-- Registruokitės per /register
-- Prisijunkite per /login
-- Kurkite sąskaitas, pridėkite/nuskaičiuokite lėšas, trinkite sąskaitas
-- Testuokite cookies ir CSRF per /cookie-test
+├── client/ # React (Vite) frontend
 
-## Pastabos
-- Prieš naudojant frontend, įsitikinkite, kad backend serveris veikia.
-- Jei norite naudoti kitą frontend adresą, pakeiskite CORS nustatymus serveryje.
-- MongoDB turi veikti lokaliai arba debesyje (keiskite connection string pagal poreikį).
+└── server/ # Node.js/Express backend
+
+
+
+
+
+## Usage
+
+1. Register via `/register`
+2. Log in via `/login`
+3. Create accounts, deposit/withdraw funds, delete accounts
+4. Test cookies and CSRF via `/cookie-test`
+
+---
+
+## Notes
+
+- Ensure the backend server is running before using the frontend.
+- If you want to use another frontend address, update the CORS settings on the server.
+- MongoDB must be running locally or in the cloud (update the connection string as needed).
+
+---
+
+### 🚀 Ready to build your Virtual Bank.
+
+
+
